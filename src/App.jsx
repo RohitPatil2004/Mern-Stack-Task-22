@@ -3,17 +3,40 @@ import FetchData from './Hooks/FetchData';
 import Card from './Hooks/Card';
 
 function App() {
-    const data = FetchData();
+    const { data, loading, error } = FetchData();
 
     return (
-      <>
-      <h1 style={{textAlign:'center'}}>Photos</h1>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', alignContent:'center', alignItems:'center', justifyContent:'center' }}>
-            {data.map(item => (
-                <Card key={item.id} thumbnailUrl={item.thumbnailUrl} title={item.title} />
-            ))}
+        <div style={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            alignContent:'center',
+            color: 'white'
+        }}>
+            {loading ? (
+                <div style={{ fontSize: '25px' }}>
+                    <h1>
+                        Loading...
+                    </h1>
+                </div>
+            ) : error ? (
+                <div style={{ fontSize: '25px' }}>
+                    <h1>
+                        An error occurred during the fetch process: {error}
+                    </h1>
+                </div>
+            ) : (
+                <>
+                    <h1 style={{ textAlign: 'center' }}>Photos</h1>
+                    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '20px', alignContent: 'center', alignItems: 'center', justifyContent: 'center' }}>
+                        {data.map(item => (
+                            <Card key={item.id} thumbnailUrl={item.thumbnailUrl} title={item.title} />
+                        ))}
+                    </div>
+                </>
+            )}
         </div>
-        </>
     );
 }
 
