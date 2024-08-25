@@ -12,6 +12,7 @@ function App() {
             justifyContent: 'center',
             alignItems: 'center',
             alignContent:'center',
+            width:'100vw',
             color: 'white'
         }}>
             {loading ? (
